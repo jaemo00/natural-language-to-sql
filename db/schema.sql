@@ -1,0 +1,1 @@
+-- TODO: Define sample MySQL schema here

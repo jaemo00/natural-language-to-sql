@@ -6,6 +6,8 @@ class ParsedQuery:
         self.columns = columns or ["*"]
         self.conditions = conditions or []
 
-def parse_korean_query(text: str) -> ParsedQuery:
-    # TODO: Implement real parsing rules here
-    return ParsedQuery()
+def parse_korean_query(table:str,columns:str,conditions:str) -> ParsedQuery:
+    #1.1 ,로 구분된 문자열을 리스트로 변환
+    columns= columns.split(",") if columns else ["*"]
+    conditions= conditions.split(",") if conditions else []
+    return ParsedQuery(table,columns,conditions)

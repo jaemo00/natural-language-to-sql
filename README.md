@@ -38,7 +38,7 @@
 1️⃣ 프로젝트 클론
 ```md
 git clone https://github.com/yourname/nl2sql-mysql-assistant.git
-cd nl2sql-mysql-assistant
+cd nl2sql-mysql-assistant```
 
 2️⃣ 가상환경 생성
 ```md

@@ -27,10 +27,17 @@
 
 > 아래 GIF는 프로젝트 실행 화면을 시연한 모습입니다.
 
-(📌 TODO: 시연 GIF 파일 추가 후 경로 작성)
+### 1. DB에 사용자 추가하기(users 테이블)
+![Users Demo](./demo/demo_1.gif)
 
+### 2. DB에 주문 추가하기(orders 테이블)
+![NL2SQL Demo](./demo/demo_2.gif)
 
-![NL2SQL Demo](./demo/demo_nl2sql.gif)
+###  3. 수동 SQL 생성
+![Users Demo](./demo/demo_1.gif)
+
+### 4. LLM 기반 자동 SQL 생성
+![NL2SQL Demo](./demo/demo_2.gif)
 
 
 ## 설치  실행 방법

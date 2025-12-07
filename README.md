@@ -44,7 +44,7 @@
 🚀 설치 및 실행 방법<br>
 1️⃣ 프로젝트 클론
 ```bash
-git clone https://github.com/yourname/nl2sql-mysql-assistant.git
+git clone https://github.com/jaemo00/natural-language-to-sql.git
 cd nl2sql-mysql-assistant
 ```
 
@@ -69,11 +69,11 @@ mysql -u root -p < db/seed.sql
 ```
 config.py에서 DB 접속 정보 수정
 
-DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "YOUR_PASSWORD",
-    "database": "nl2sql_demo",
+DB_CONFIG = {<br>
+    "host": "localhost",<br>
+    "user": "root",<br>
+    "password": "YOUR_PASSWORD",<br>
+    "database": "nl2sql_demo",<br>
 }
 
 5️⃣ Ollama 설치 및 로컬 LLM 준비

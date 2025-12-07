@@ -41,9 +41,9 @@ git clone https://github.com/yourname/nl2sql-mysql-assistant.git
 cd nl2sql-mysql-assistant```
 
 2️⃣ 가상환경 생성
-
+```bash
 conda create -n nl2sql python=3.12 -y
-conda activate nl2sql
+conda activate nl2sql```
 
 3️⃣ 패키지 설치
 

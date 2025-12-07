@@ -34,10 +34,10 @@
 ![NL2SQL Demo](./demo/demo_2.gif)
 
 ###  3. 수동 SQL 생성
-![Users Demo](./demo/demo_1.gif)
+![Users Demo](./demo/demo_3.gif)
 
 ### 4. LLM 기반 자동 SQL 생성
-![NL2SQL Demo](./demo/demo_2.gif)
+![NL2SQL Demo](./demo/demo_4.gif)
 
 
 ## 설치  실행 방법
@@ -92,51 +92,39 @@ uvicorn app.main:app --reload
 http://localhost:8000
 ```
 
-🧪 주요 기능
-기능	엔드포인트	설명
-사용자 추가	POST /api/users	users 테이블 INSERT
-사용자 삭제	DELETE /api/users/{id}	FK 정리 후 삭제
-주문 추가	POST /api/orders	orders 테이블 INSERT
-주문 삭제	DELETE /api/orders/{id}	행 1개 삭제
-수동 SQL 실행	POST /api/query	파싱 → SQL 생성 → 실행
-자동 NL → SQL 실행	POST /api/nl2sql	LLM → SQL → 실행
-🤖 LLM Prompt 주요 내용
+## 🧪 주요 기능
 
-LLM이 DB 스키마에 맞는 SQL을 생성하도록 프롬프트 엔지니어링 적용
+| 기능 | 엔드포인트 | 설명 |
+|------|-----------|-----|
+| 사용자 추가 | `POST /api/users` | users 테이블에 데이터 추가 |
+| 사용자 삭제 | `DELETE /api/users/{id}` | 외래키 관계 정리 후 삭제 |
+| 주문 추가 | `POST /api/orders` | orders 테이블에 데이터 추가 |
+| 주문 삭제 | `DELETE /api/orders/{id}` | 단일 주문 데이터 삭제 |
+| 수동 SQL 실행 | `POST /api/query` | 직접 입력한 데이터 기반 SQL 생성 & 실행 |
+| 자동 NL → SQL 실행 | `POST /api/nl2sql` | LLM이 SQL 생성 후 실행 |
 
-MySQL 문법
+---
 
-SELECT 한 개만 생성
+##  LLM Prompt 주요 내용
 
-불필요한 설명, 백틱( ` ) 제거
+- MySQL 문법만 사용
+- SELECT 문 1개만 생성
+- 불필요한 설명 및 백틱(`) 제거
+- DB에 존재하지 않는 컬럼명/테이블명 금지
+- SQL 직후 실행 가능한 형태로 출력
 
-존재하는 테이블과 컬럼만 사용
+---
 
- 한계 & 보완 예정
 
-LLM이 간혹 문자열 앞뒤에 불필요한 공백 추가하는 문제
-→ 후처리 또는 더 강력한 프롬프트 개선 예정
 
-DELETE 시 FK 제약 존재
-→ 주문 삭제 먼저 처리하도록 구현 완료
 
-SQL 인젝션 방지는 Prepared Query 로 처리
+## 🧰 기술 스택
 
- 향후 개선 아이디어
-
-JOIN 자동 생성 정확도 강화
-
-GROUP BY / ORDER BY 지원
-
-RAG 기반 NL→SQL 확장
-
-사용자 기반 권한 인증
-
- 기술 스택
-분류	사용 기술
-Backend	Python 3.12, FastAPI, Uvicorn
-Frontend	HTML5, CSS3, Vanilla JavaScript
-Database	MySQL Community Server 8.x
-Local LLM	Ollama + llama3.2 모델
-Protocol	REST API(JSON)
-Tools(optional)	MySQL Workbench, VSCode
+| 분류 | 사용 기술 |
+|------|----------|
+| Backend | Python 3.12, FastAPI, Uvicorn |
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Database | MySQL Community Server 8.x |
+| Local LLM | Ollama + llama3.2 모델 |
+| Protocol | REST API(JSON) |
+| Tools(optional) | MySQL Workbench, VSCode |

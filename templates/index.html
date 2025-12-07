@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>NL → SQL MySQL Assistant</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="app">
+        <header class="app-header">
+            <h1>NL → SQL MySQL Assistant</h1>
+            <p class="subtitle">
+                LLM을 통해 간단한 SQL을 생성하여, MySQL기반 데이터베이스에 데이터를 조회·추가할 수 있는 애플리케이션입니다. 
+            </p>
+        </header>
+
+        <main class="layout">
+            <!-- 왼쪽 패널: 입력 / 폼 -->
+            <section class="left-panel">
+                <!-- users 추가 카드 -->
+                <section class="card">
+                    <div class="card-title-row">
+                        <h2>
+                            <span class="badge badge-green">1. 사용자 추가</span>
+                            users 테이블에 새 사용자 추가
+                        </h2>
+                    </div>
+
+
+                    <form id="add-user-form" class="form">
+                        <label class="field">
+                            <span class="field-label">name (필수)</span>
+                            <input type="text" name="name" placeholder="예: 철수" required />
+                        </label>
+                        <label class="field">
+                            <span class="field-label">age</span>
+                            <input type="number" name="age" placeholder="예: 20" />
+                        </label>
+                        <label class="field">
+                            <span class="field-label">city</span>
+                            <input type="text" name="city" placeholder="예: Seoul" />
+                        </label>
+
+                        <button type="submit" class="btn primary">DB에 사용자 추가</button>
+                    </form>
+                    <div id="add-user-message" class="status-text"></div>
+                </section>
+
+                <!-- 2) 주문 추가 섹션 -->
+                <section class="card">
+                <div class="card-title-row">
+                    <h2>
+                        <span class="badge badge-green">2. 주문 추가</span>
+                        orders 테이블에 주문 추가
+                    </h2>
+                </div>
+ 
+
+                <form id="add-order-form" class="form">
+                    <label class="field">
+                        <span class="field-label">user_id (필수)</span>
+                        <input type="number" name="user_id" placeholder="예: 1" required />
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">product</span>
+                        <input type="text" name="product" placeholder="예: 모니터" required />
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">price</span>
+                        <input type="number" name="price" placeholder="예: 300000" required />
+                    </label>
+
+                    <button type="submit" class="btn primary">DB에 주문 추가</button>
+                </form>
+
+                <div id="add-order-message" class="status-text"></div>
+            </section>
+
+                <!-- NL → SQL 테스트 카드 -->
+                <section class="card">
+                    <div class="card-title-row">
+                        <h2>
+                            <span class="badge badge-purple">3. 수동 SQL 생성</span>
+                        </h2>
+                    </div>
+
+
+                    <form id="query-form" class="form">
+                        <label class="field">
+                            <span class="field-label">테이블 이름 (table)</span>
+                            <input type="text" name="table" placeholder="예: users" required />
+                        </label>
+
+                        <label class="field">
+                            <span class="field-label">컬럼 목록 (columns, 쉼표로 구분)</span>
+                            <input type="text" name="columns" placeholder="예: name, age, city  (비우면 *)" />
+                        </label>
+
+                        <label class="field">
+                            <span class="field-label">조건 목록 (conditions, 쉼표로 구분)</span>
+                            <input type="text" name="conditions" placeholder="예: age >= 20, city = 'Seoul'" />
+                        </label>
+
+                        <button type="submit" class="btn primary">SQL 생성 & 실행</button>
+                    </form>
+
+                    <div class="result-block">
+                        <h3>생성된 SQL</h3>
+                        <pre id="sql-box" class="code-block">(아직 없음)</pre>
+                    </div>
+
+                    <div class="result-block">
+                        <h3>쿼리 결과</h3>
+                        <div id="rows-box" class="table-wrapper muted-text">(아직 없음)</div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <div class="card-title-row">
+                        <h2>
+                            <span class="badge badge-purple">4. LLM 기반 SQL 자동생성</span>
+                        </h2>
+                    </div>
+
+                    <form id="nl2sql-form" class="form">
+                        <label class="field">
+                            <span class="field-label">자연어 질의</span>
+                            <input type="text" name="message" placeholder="예: 서울에 사는 25세 이상 사용자 보여줘" />
+                        </label>
+                        <button type="submit" class="btn primary">LLM으로 SQL 생성 & 실행</button>
+                    </form>
+
+                    <div class="result-block">
+                        <h3>생성된 SQL</h3>
+                        <pre id="nl2sql-sql-box" class="code-block">(아직 없음)</pre>
+                    </div>
+
+                    <div class="result-block">
+                        <h3>쿼리 결과</h3>
+                        <div id="nl2sql-rows-box" class="table-wrapper muted-text">(아직 없음)</div>
+                    </div>
+                </section>
+
+            </section>
+
+            <!-- 오른쪽 패널: DB 데이터 뷰 -->
+            <aside class="right-panel">
+                <!-- users 카드 -->
+                <section class="card">
+                    <div class="card-title-row">
+                        <h2>
+                            <span class="badge badge-yellow">DB 데이터</span>
+                            users 테이블 
+                        </h2>
+                        <button id="refresh-users-btn" type="button" class="btn ghost">
+                            새로고침
+                        </button>
+                    </div>
+
+
+                    <div id="users-box" class="table-wrapper muted-text">
+                        로딩 중...
+                    </div>
+                </section>
+
+
+                <!-- orders 카드 추가 -->
+            <section class="card">
+                <div class="card-title-row">
+                    <h2>
+                        <span class="badge badge-yellow">DB 데이터</span>
+                        orders 테이블
+                    </h2>
+                    <button id="refresh-orders-btn" type="button" class="btn ghost">
+                        새로고침
+                    </button>
+                </div>
+
+
+                <div id="orders-box" class="table-wrapper muted-text">
+                    로딩 중...
+                </div>
+            </section>
+
+            </aside>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

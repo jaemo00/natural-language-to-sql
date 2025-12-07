@@ -34,7 +34,7 @@
 
 
 ## 설치  실행 방법
-🚀 설치 및 실행 방법
+🚀 설치 및 실행 방법<br>
 1️⃣ 프로젝트 클론
 ```bash
 git clone https://github.com/yourname/nl2sql-mysql-assistant.git
@@ -105,7 +105,7 @@ SELECT 한 개만 생성
 
 존재하는 테이블과 컬럼만 사용
 
-🧐 한계 & 보완 예정
+ 한계 & 보완 예정
 
 LLM이 간혹 문자열 앞뒤에 불필요한 공백 추가하는 문제
 → 후처리 또는 더 강력한 프롬프트 개선 예정
@@ -115,7 +115,7 @@ DELETE 시 FK 제약 존재
 
 SQL 인젝션 방지는 Prepared Query 로 처리
 
-🏁 향후 개선 아이디어
+ 향후 개선 아이디어
 
 JOIN 자동 생성 정확도 강화
 
@@ -125,7 +125,7 @@ RAG 기반 NL→SQL 확장
 
 사용자 기반 권한 인증
 
-🧰 기술 스택
+ 기술 스택
 분류	사용 기술
 Backend	Python 3.12, FastAPI, Uvicorn
 Frontend	HTML5, CSS3, Vanilla JavaScript

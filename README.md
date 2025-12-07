@@ -38,26 +38,28 @@
 1️⃣ 프로젝트 클론
 ```bash
 git clone https://github.com/yourname/nl2sql-mysql-assistant.git
-cd nl2sql-mysql-assistant```
+cd nl2sql-mysql-assistant
+```
 
 2️⃣ 가상환경 생성
 ```bash
 conda create -n nl2sql python=3.12 -y
-conda activate nl2sql```
+conda activate nl2sql
+```
 
 3️⃣ 패키지 설치
-
+```bash
 pip install -r requirements.txt
-
+```
 4️⃣ MySQL DB 설정
 MySQL 실행 후, Workbench 또는 CLI에서
 db/schema.sql & db/seed.sql 실행
 
 또는 CLI 예시:
-
+```bash
 mysql -u root -p < db/schema.sql
 mysql -u root -p < db/seed.sql
-
+```
 config.py에서 DB 접속 정보 수정
 
 DB_CONFIG = {
@@ -71,15 +73,17 @@ DB_CONFIG = {
 ollama pull llama3.2
 
 Ollama 서버가 자동 실행되지 않으면:
+```bash
 ollama serve
-
+```
 6️⃣ 서버 실행
-
+```bash
 uvicorn app.main:app --reload
-
+```
 7️⃣ 브라우저 접속
+```bash
 http://localhost:8000
-
+```
 
 🧪 주요 기능
 기능	엔드포인트	설명

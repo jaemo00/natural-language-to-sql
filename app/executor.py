@@ -4,29 +4,42 @@ import pymysql
 from .config import DB_CONFIG
 
 
-def execute_query(sql: str):
-    """
-    주어진 SQL 문자열을 MySQL에 보내고 결과를 반환한다.
-    - 주로 SELECT 문을 실행한다고 가정하고 설계.
-    - 결과는 (튜플) 리스트로 반환됨.
-    """
-    # DB 연결 열기
-    conn = pymysql.connect(
+def _get_connection():
+    return pymysql.connect(
         host=DB_CONFIG["host"],
         port=DB_CONFIG["port"],
         user=DB_CONFIG["user"],
         password=DB_CONFIG["password"],
         database=DB_CONFIG["database"],
         charset=DB_CONFIG["charset"],
-        cursorclass=pymysql.cursors.DictCursor,  # 결과를 dict 형태로 받기 위해
+        cursorclass=pymysql.cursors.DictCursor,  # dict 형태로 결과 받기
     )
 
+
+def execute_query(sql: str, params: tuple | None = None):
+    """
+    SELECT용 함수: 결과를 rows 리스트로 반환.
+    """
+    conn = _get_connection()
     try:
         with conn.cursor() as cursor:
-            cursor.execute(sql)
-
-            # SELECT 문이라고 가정하고 결과 가져오기
+            cursor.execute(sql, params or ())
             rows = cursor.fetchall()
             return rows
+    finally:
+        conn.close()
+
+
+def execute_non_query(sql: str, params: tuple | None = None) -> int:
+    """
+    INSERT / UPDATE / DELETE용 함수.
+    - 영향 받은 row 개수를 반환.
+    """
+    conn = _get_connection()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(sql, params or ())
+        conn.commit()
+        return cursor.rowcount
     finally:
         conn.close()

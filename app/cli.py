@@ -3,7 +3,7 @@
 
 from .parser import parse_korean_query
 from .sql_builder import build_sql
-#from executor import execute_query
+from .executor import execute_query
 
 def main():
     print("=== NL → SQL Assistant ===")
@@ -16,6 +16,16 @@ def main():
 
     print("\n[생성된 SQL]")
     print(sql)
+
+    print("\n[결과]")
+    rows = execute_query(sql)
+
+    # 예쁘게 출력
+    if not rows:
+        print("(결과 없음)")
+    else:
+        for row in rows:
+            print(row)
 
     # print("\n[결과]")
     # rows = execute_query(sql)

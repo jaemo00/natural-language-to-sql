@@ -85,7 +85,7 @@ ollama serve
 ```
 6️⃣ 서버 실행
 ```bash
-uvicorn app.main:app --reload
+uvicorn main:app --reload
 ```
 7️⃣ 브라우저 접속
 ```bash

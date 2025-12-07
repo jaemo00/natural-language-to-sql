@@ -29,25 +29,27 @@
 
 (📌 TODO: 시연 GIF 파일 추가 후 경로 작성)
 
-```md
+
 ![NL2SQL Demo](./demo/demo_nl2sql.gif)
 
 
 ## 설치  실행 방법
 🚀 설치 및 실행 방법
 1️⃣ 프로젝트 클론
+```md
 git clone https://github.com/yourname/nl2sql-mysql-assistant.git
 cd nl2sql-mysql-assistant
 
 2️⃣ 가상환경 생성
+```md
 conda create -n nl2sql python=3.12 -y
 conda activate nl2sql
 
 3️⃣ 패키지 설치
+```md
 pip install -r requirements.txt
 
 4️⃣ MySQL DB 설정
-
 MySQL 실행 후, Workbench 또는 CLI에서
 db/schema.sql & db/seed.sql 실행
 
@@ -56,8 +58,7 @@ db/schema.sql & db/seed.sql 실행
 mysql -u root -p < db/schema.sql
 mysql -u root -p < db/seed.sql
 
-
-.env 또는 config.py에서 DB 접속 정보 수정
+config.py에서 DB 접속 정보 수정
 
 DB_CONFIG = {
     "host": "localhost",
@@ -69,15 +70,16 @@ DB_CONFIG = {
 5️⃣ Ollama 설치 및 로컬 LLM 준비
 ollama pull llama3.2
 
-
 Ollama 서버가 자동 실행되지 않으면:
-
+```md
 ollama serve
 
 6️⃣ 서버 실행
+```md
 uvicorn app.main:app --reload
 
 7️⃣ 브라우저 접속
+```md
 http://localhost:8000
 
 
